@@ -1,0 +1,17 @@
+{
+    "name": "gate_project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./bin/gate_project.js",
+    "bin": {
+        "gate_project": "./bin/gate_project.js"
+    },
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}

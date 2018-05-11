@@ -63,12 +63,10 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
   webAppFuncs.availableAgent(function(err, result) {
     if (err) {
       res.sendStatus(403);
-      console.log("error1");
     } else {
       HTMLFuncs.getAvailableAgent(result, function(err, htmlResult) {
         if (err) {
-          res.sendStatus(403);
-          console.log("error2");
+          res.sendStatus(403);        
         } else {
           res.send(htmlResult);
         }

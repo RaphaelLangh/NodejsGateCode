@@ -2,7 +2,7 @@ var express = require('express');
 
 var app = express();
 var andrFunc = require('./lib/AndroidCom/index.js');
-var webAppFuncs = require('./lib/WebAppCom/index.js');
+var webAppFuncs = require('./lib/WebAppFuncs/index.js');
 var HTMLFuncs = require('./lib/HTMLParser/index.js');
 
 // road for andoid phone
@@ -60,7 +60,7 @@ app.get('/changePassword', function(req, res) {
 
 // road for webapp
 app.get('/agents', function(req, res) { // we want the list of agents curently employed
-  webAppFuncs.getAvailableAgent(function(err, result) {
+  webAppFuncs.availableAgent(function(err, result) {
     if (err) {
       res.sendStatus(403);
     } else {

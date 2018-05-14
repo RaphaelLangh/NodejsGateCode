@@ -66,7 +66,7 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
     } else {
       HTMLFuncs.getAvailableAgent(result, function(err, htmlResult) {
         if (err) {
-          res.sendStatus(403);        
+          res.sendStatus(403);
         } else {
           res.send(htmlResult);
         }
@@ -75,23 +75,30 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
   });
 });
 
-app.get('/agentAuth', function(req, res) { // we want the gate that an agent can open
-
-  webAppFuncs.agentAuth(req.query.id_agent, function(err, gateList) {
+app.get('/missions', function(req, res){ // currentMission
+  webAppFuncs.getCurrentMission(function(err, result){
     if (err) {
       res.sendStatus(403);
     } else {
-      res.send(gateList);
+      console.log("call html func");
+      HTMLFuncs.getCurrentMission(result, function(err, htmlResult){
+        if (err) {
+          res.sendStatus(403);
+        } else {
+          res.send(htmlResult);
+        }
+      });
     }
   });
 });
 
-app.get('/givAgentAuth', function(req, res) { // alow agent to access to a given gate
+
+app.get('/addMission', function(req, res) { // add a mission
   webAppFuncs.givAgentAuth(req.query.id_agent, req.query.id_gate);
   res.sendStatus(200);
 });
 
-app.get('/delAgentAuth', function(req, res) { // don't anymore alow agent to access to a given gate
+app.get('/delMission', function(req, res) { // delete mission
   webAppFuncs.delAgentAuth(req.query.id_agent, req.query.id_gate);
   res.sendStatus(200);
 });

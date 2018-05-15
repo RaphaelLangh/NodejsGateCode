@@ -65,11 +65,31 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
     if (err) {
       res.sendStatus(403);
     } else {
-      HTMLFuncs.getAvailableAgent(result, function(err, htmlResult) {
+      HTMLFuncs.agentParser(result, function(err, htmlResult) {
         if (err) {
           res.sendStatus(403);
         } else {
           res.send(htmlResult);
+        }
+      });
+    }
+  });
+});
+
+app.get('/allAgents', function(req,res){
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  WebAppFuncs.allAgent(function(err,MyAgents){
+    if(err){
+      console.log("error");
+      res.sendStatus(403);
+    }
+    else{
+      HTMLFuncs.agentParser(MyAgents, function(err, htmlResult) {
+        if(err){
+          res.sendStatus(403);
+        }
+        else{
+            res.send(htmlResult);
         }
       });
     }
@@ -82,7 +102,7 @@ app.get('/missions', function(req, res){ // currentMission
     if (err) {
       res.sendStatus(403);
     } else {
-      HTMLFuncs.getCurrentMission(result, function(err, htmlResult){
+      HTMLFuncs.missionParser(result, function(err, htmlResult){
         if (err) {
           res.sendStatus(403);
         } else {

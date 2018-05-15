@@ -76,33 +76,31 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
   });
 });
 
-app.get('/allAgents', function(req,res){
+app.get('/allAgents', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  WebAppFuncs.allAgent(function(err,MyAgents){
-    if(err){
+  WebAppFuncs.allAgent(function(err, MyAgents) {
+    if (err) {
       console.log("error");
       res.sendStatus(403);
-    }
-    else{
+    } else {
       HTMLFuncs.agentParser(MyAgents, function(err, htmlResult) {
-        if(err){
+        if (err) {
           res.sendStatus(403);
-        }
-        else{
-            res.send(htmlResult);
+        } else {
+          res.send(htmlResult);
         }
       });
     }
   });
 });
 
-app.get('/missions', function(req, res){ // currentMission
+app.get('/missions', function(req, res) { // currentMission
   res.setHeader('Access-Control-Allow-Origin', '*');
-  webAppFuncs.getCurrentMission(function(err, result){
+  webAppFuncs.getCurrentMission(function(err, result) {
     if (err) {
       res.sendStatus(403);
     } else {
-      HTMLFuncs.missionParser(result, function(err, htmlResult){
+      HTMLFuncs.missionParser(result, function(err, htmlResult) {
         if (err) {
           res.sendStatus(403);
         } else {
@@ -116,6 +114,12 @@ app.get('/missions', function(req, res){ // currentMission
 app.get('/addMission', function(req, res) { // add a mission
   console.log("addMissionHitten");
   webAppFuncs.addMission(req.query.firstName, req.query.familyName, req.query.address);
+  res.sendStatus(200);
+});
+
+app.get('./addAgent', function(req, res) {
+  console.log('addAgentHitten');
+  WebAppFuncs.addAgent(req.query.firstName, req.query.familyName, req.query.imei);
   res.sendStatus(200);
 });
 

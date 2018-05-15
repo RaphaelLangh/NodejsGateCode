@@ -94,7 +94,8 @@ app.get('/missions', function(req, res){ // currentMission
 });
 
 app.get('/addMission', function(req, res) { // add a mission
-  webAppFuncs.givAgentAuth(req.query.id_agent, req.query.id_gate);
+  console.log("addMissionHitten");
+  webAppFuncs.addMission(req.query.firstName, req.query.familyName, req.query.address);
   res.sendStatus(200);
 });
 

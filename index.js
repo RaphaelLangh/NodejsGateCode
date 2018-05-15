@@ -60,6 +60,7 @@ app.get('/changePassword', function(req, res) {
 
 // road for webapp
 app.get('/agents', function(req, res) { // we want the list of agents curently employed
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.availableAgent(function(err, result) {
     if (err) {
       res.sendStatus(403);
@@ -76,11 +77,11 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
 });
 
 app.get('/missions', function(req, res){ // currentMission
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.getCurrentMission(function(err, result){
     if (err) {
       res.sendStatus(403);
     } else {
-      console.log("call html func");
       HTMLFuncs.getCurrentMission(result, function(err, htmlResult){
         if (err) {
           res.sendStatus(403);
@@ -91,7 +92,6 @@ app.get('/missions', function(req, res){ // currentMission
     }
   });
 });
-
 
 app.get('/addMission', function(req, res) { // add a mission
   webAppFuncs.givAgentAuth(req.query.id_agent, req.query.id_gate);

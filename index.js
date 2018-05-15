@@ -78,7 +78,7 @@ app.get('/agents', function(req, res) { // we want the list of agents curently e
 
 app.get('/allAgents', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  WebAppFuncs.allAgent(function(err, MyAgents) {
+  webAppFuncs.allAgent(function(err, MyAgents) {
     if (err) {
       console.log("error");
       res.sendStatus(403);

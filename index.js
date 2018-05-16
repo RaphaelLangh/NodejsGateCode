@@ -59,6 +59,19 @@ app.get('/changePassword', function(req, res) {
 });
 
 // road for webapp
+app.get('/popoverContent',function(req,res){
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  webAppFuncs.getPopoverContent(function(err,popoverContent){
+    if(err){
+      res.sendStatus(403);
+    }
+    else{
+      console.log("popover?");
+      res.send(popoverContent);
+    }
+  });
+});
+
 app.get('/agents', function(req, res) { // we want the list of agents curently employed
   res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.availableAgent(function(err, result) {

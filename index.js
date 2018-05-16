@@ -59,13 +59,12 @@ app.get('/changePassword', function(req, res) {
 });
 
 // road for webapp
-app.get('/popoverContent',function(req,res){
+app.get('/popoverContent', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  webAppFuncs.getPopoverContent(function(err,popoverContent){
-    if(err){
+  webAppFuncs.getPopoverContent(function(err, popoverContent) {
+    if (err) {
       res.sendStatus(403);
-    }
-    else{
+    } else {
       console.log("popover?");
       res.send(popoverContent);
     }
@@ -141,7 +140,7 @@ app.get('/endMission', function(req, res) { // delete mission
   res.sendStatus(200);
 });
 
-app.get('/delAgent', function(req, res){
+app.get('/delAgent', function(req, res) {
   webAppFuncs.delAgent(req.query.firstName, req.query.familyName);
   res.sendStatus(200);
 });

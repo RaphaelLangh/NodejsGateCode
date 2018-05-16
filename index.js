@@ -130,14 +130,19 @@ app.get('/addMission', function(req, res) { // add a mission
   res.sendStatus(200);
 });
 
-app.get('./addAgent', function(req, res) {
+app.get('/addAgent', function(req, res) {
   console.log('addAgentHitten');
   WebAppFuncs.addAgent(req.query.firstName, req.query.familyName, req.query.imei);
   res.sendStatus(200);
 });
 
-app.get('/delMission', function(req, res) { // delete mission
-  webAppFuncs.delAgentAuth(req.query.id_agent, req.query.id_gate);
+app.get('/endMission', function(req, res) { // delete mission
+  webAppFuncs.endMission(req.query.firstName, req.query.familyName, req.query.address);
+  res.sendStatus(200);
+});
+
+app.get('/delAgent', function(req, res){
+  webAppFuncs.delAgent(req.query.firstName, req.query.familyName);
   res.sendStatus(200);
 });
 

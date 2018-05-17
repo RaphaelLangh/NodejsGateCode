@@ -64,8 +64,7 @@ app.get('/popoverContent', function(req, res) {
   webAppFuncs.getPopoverContent(function(err, popoverContent) {
     if (err) {
       res.sendStatus(403);
-    } else {
-      console.log("popover?");
+    } else {    
       res.send(popoverContent);
     }
   });

@@ -64,7 +64,7 @@ app.get('/popoverContent', function(req, res) {
   webAppFuncs.getPopoverContent(function(err, popoverContent) {
     if (err) {
       res.sendStatus(403);
-    } else {    
+    } else {
       res.send(popoverContent);
     }
   });
@@ -94,11 +94,12 @@ app.get('/allAgents', function(req, res) {
       console.log("error");
       res.sendStatus(403);
     } else {
-      HTMLFuncs.agentParser(MyAgents, function(err, htmlResult) {
+      HTMLFuncs.agentParser(MyAgents.listAgent, function(err, htmlResult) {
         if (err) {
           res.sendStatus(403);
         } else {
-          res.send(htmlResult);
+          res.send({agentsId : MyAgents.agentsId, listAgentHTML : htmlResult});
+          // idee : send also id_agent ?
         }
       });
     }
@@ -111,11 +112,11 @@ app.get('/missions', function(req, res) { // currentMission
     if (err) {
       res.sendStatus(403);
     } else {
-      HTMLFuncs.missionParser(result, function(err, htmlResult) {
+      HTMLFuncs.missionParser(result.missions, function(err, htmlResult) {
         if (err) {
           res.sendStatus(403);
         } else {
-          res.send(htmlResult);
+          res.send({missions : htmlResult, missionsIdentifier : result.auths });
         }
       });
     }
@@ -124,22 +125,26 @@ app.get('/missions', function(req, res) { // currentMission
 
 app.get('/addMission', function(req, res) { // add a mission
   console.log("addMissionHitten");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.addMission(req.query.firstName, req.query.familyName, req.query.address);
   res.sendStatus(200);
 });
 
 app.get('/addAgent', function(req, res) {
   console.log('addAgentHitten');
-  WebAppFuncs.addAgent(req.query.firstName, req.query.familyName, req.query.imei);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  webAppFuncs.addAgent(req.query.FirstName, req.query.FamilyName, req.query.imei);
   res.sendStatus(200);
 });
 
 app.get('/endMission', function(req, res) { // delete mission
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.endMission(req.query.firstName, req.query.familyName, req.query.address);
   res.sendStatus(200);
 });
 
 app.get('/delAgent', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.delAgent(req.query.firstName, req.query.familyName);
   res.sendStatus(200);
 });

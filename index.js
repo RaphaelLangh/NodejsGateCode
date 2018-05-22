@@ -139,15 +139,12 @@ app.get('/addAgent', function(req, res) {
 
 app.get('/endMission', function(req, res) { // delete mission
   res.setHeader('Access-Control-Allow-Origin', '*');
-  console.log("id_agent : " + req.query.id_agent);
-  console.log("id_gate : " + req.query.id_gate);
   webAppFuncs.endMission(req.query.id_agent, req.query.id_gate);
   res.sendStatus(200);
 });
 
 app.get('/delAgent', function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  console.log("id_agent : " + req.query.id_agent);
+  res.setHeader('Access-Control-Allow-Origin', '*');  
   webAppFuncs.delAgent(req.query.id_agent);
   res.sendStatus(200);
 });

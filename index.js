@@ -9,10 +9,14 @@ var HTMLFuncs = require('./lib/HTMLParser/index.js');
 
 // retourn the gate connection information
 app.get('/beginMission', function(req, res) {
-  console.log("hitten beginMiss");
   andrFunc.beginMission(req.query.imei, function(err, gateData) {
     if (err) {
+      if (err.message === "no authorisation") {
+        res.send(["no authorisation"]);
+      }
+      else{
       res.sendStatus(404);
+    }
     } else {
       res.send(gateData);
     }
@@ -20,21 +24,30 @@ app.get('/beginMission', function(req, res) {
 });
 app.get('/openGate', function(req, res) {
   andrFunc.openGate(req.query.imei, function(err, passwords) {
-    if (err) {
-      res.sendStatus(404);
-    } else {
+    if(err){
+      if (err.message === "no authorisation") {
+        res.send(["no authorisation"]);
+      }
+      else{
+          res.sendStatus(404);
+      }
+    }
+    else {
       res.send(passwords);
     }
   });
 });
 app.get('/closeGate', function(req, res) {
-  andrFunc.closeGate(req.query.imei, req.query.id_gate, req.query.password, req.query.nPassword, function(err, message) {
+  /*andrFunc.closeGate(req.query.imei, req.query.id_gate, req.query.password, req.query.nPassword, function(err, message) {
     if (err) {
       res.sendStatus(404);
     } else {
-      res.send(message);
-    }
-  });
+    */
+    console.log('hitten');
+    //res.sendStatus(200);
+    res.send("true");
+    //}
+  //});
 });
 
 
@@ -144,7 +157,7 @@ app.get('/endMission', function(req, res) { // delete mission
 });
 
 app.get('/delAgent', function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');  
+  res.setHeader('Access-Control-Allow-Origin', '*');
   webAppFuncs.delAgent(req.query.id_agent);
   res.sendStatus(200);
 });
